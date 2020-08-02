@@ -1,6 +1,6 @@
 # BankApi
 
-https://github.com/richardherald/bank_api/workflows/actions/badge.svg
+(https://github.com/richardherald/bank_api/workflows/actions/badge.svg)
 
 To start your Phoenix server:
 
