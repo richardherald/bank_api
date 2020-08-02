@@ -1,5 +1,7 @@
 # BankApi
 
+![actions](https://github.com/richardherald/bank_api/workflows/actions/badge.svg)
+
 To start your Phoenix server:
 
   * Install dependencies with `mix deps.get`
