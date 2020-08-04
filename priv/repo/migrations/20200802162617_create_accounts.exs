@@ -4,7 +4,7 @@ defmodule BankApi.Repo.Migrations.CreateAccounts do
   def change do
     create table(:accounts, primary_key: false) do
       add :id, :uuid, primary_key: true
-      add :balance, :string, null: false
+      add :balance, :integer
       add :user_id, references(:users, name: :id, type: :uuid)
 
       timestamps()

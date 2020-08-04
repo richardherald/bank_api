@@ -4,13 +4,21 @@ defmodule BankApi.Users.Schema.Account do
   """
   use Ecto.Schema
 
+  import Ecto.Changeset
+
   @primary_key {:id, :binary_id, autogenerate: true}
   @derive {Phoenix.Param, key: :id}
   @foreign_key_type Ecto.UUID
   schema "accounts" do
-    field :balance, :decimal, precision: 10, scale: 2, default: 1000
-    belongs_to :users, BankApi.Users.Schema.User
+    field :balance, :integer, default: 1000
+    belongs_to :users, BankApi.Users.Schema.User, foreign_key: :user_id
 
     timestamps()
+  end
+
+  def changeset(account, params \\ %{}) do
+    account
+    |> cast(params, [:balance])
+    |> validate_required([:balance])
   end
 end
