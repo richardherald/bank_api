@@ -1,6 +1,8 @@
 defmodule BankApi.CreateAdminTest do
   use BankApi.DataCase, async: true
 
+  import BankApi.Factory
+
   alias BankApi.Users.Schema.{User, Account}
   alias BankApi.Users.CreateUser
 
@@ -58,6 +60,19 @@ defmodule BankApi.CreateAdminTest do
       %{email: ["Email format invalid"]} = errors_on(changeset)
     end
 
+    test "returns error when email already in used" do
+      insert(:user)
+      params = %{
+        name: "Richard",
+        email: "Richard@gmail.com",
+        password: "123456",
+        password_confirmation: "123456"
+      }
+
+      assert {:error, %Ecto.Changeset{} = changeset} = CreateUser.run(params)
+      %{email: ["Email already used"]} = errors_on(changeset)
+    end
+
     test "returns error when password is missing" do
       params = %{
         name: "Richard",
@@ -80,7 +95,9 @@ defmodule BankApi.CreateAdminTest do
       }
 
       assert {:error, %Ecto.Changeset{} = changeset} = CreateUser.run(params)
-      %{password_confirmation: ["Passwords are different", "can't be blank"]} = errors_on(changeset)
+
+      %{password_confirmation: ["Passwords are different", "can't be blank"]} =
+        errors_on(changeset)
     end
 
     test "returns error when passwords is not equals" do
