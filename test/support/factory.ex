@@ -1,5 +1,7 @@
 defmodule BankApi.Factory do
-  # with Ecto
+  @moduledoc """
+  Factory module
+  """
   use ExMachina.Ecto, repo: BankApi.Repo
 
   alias BankApi.Users.Schema.User

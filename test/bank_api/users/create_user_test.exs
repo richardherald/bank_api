@@ -3,8 +3,8 @@ defmodule BankApi.CreateAdminTest do
 
   import BankApi.Factory
 
-  alias BankApi.Users.Schema.{User, Account}
   alias BankApi.Users.CreateUser
+  alias BankApi.Users.Schema.{Account, User}
 
   describe "run/1" do
     test "returns a struct when the params are valid" do

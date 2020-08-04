@@ -3,8 +3,8 @@ defmodule BankApi.Users.CreateUser do
   Creating a new user
   """
 
-  alias BankApi.Users.Schema.{User, Account}
   alias BankApi.Repo
+  alias BankApi.Users.Schema.{Account, User}
 
   def run(params) do
     multi =
