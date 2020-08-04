@@ -62,6 +62,7 @@ defmodule BankApi.CreateAdminTest do
 
     test "returns error when email already in used" do
       insert(:user)
+
       params = %{
         name: "Richard",
         email: "Richard@gmail.com",
