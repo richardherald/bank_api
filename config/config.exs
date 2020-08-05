@@ -30,6 +30,10 @@ config :bank_api, BankApiWeb.Guardian,
   issuer: "bank_api",
   secret_key: "12VuT/D0iq7sLoU/4XU8AfEV+kdcMJ9qJauA00zsiwmVIKn5+hhny7v6dOZuGY5Q"
 
+config :bank_api, BankApiWeb.AuthAccessPipeline,
+  module: BankApiWeb.Guardian,
+  error_handler: BankApiWeb.AuthErrorHandler
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"
