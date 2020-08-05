@@ -9,7 +9,7 @@ defmodule BankApi.SignInTest do
   describe "run/2" do
     setup do
       insert(:user)
-      :ok 
+      :ok
     end
 
     test "returns ok when email and password match" do
@@ -17,11 +17,11 @@ defmodule BankApi.SignInTest do
     end
 
     test "returns error when username is invalid" do
-      assert {:error, :email_or_password_invalid} = SignIn.run("Richardgmail.com", "123456")
+      assert {:error, "username or password invalid"} = SignIn.run("Richardgmail.com", "123456")
     end
 
     test "returns error when password is invalid" do
-      assert {:error, :email_or_password_invalid} = SignIn.run("Richardgmail.com", "123456")
+      assert {:error, "username or password invalid"} = SignIn.run("Richardgmail.com", "123456")
     end
   end
 end

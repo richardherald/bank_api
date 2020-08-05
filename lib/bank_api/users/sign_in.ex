@@ -9,7 +9,7 @@ defmodule BankApi.Users.SignIn do
   def run(email, password) do
     case Repo.get_by(User, email: email) do
       %User{} = user -> verify_password(user, password)
-      nil -> {:error, :email_or_password_invalid}
+      nil -> {:error, "username or password invalid"}
     end
   end
 
@@ -17,7 +17,7 @@ defmodule BankApi.Users.SignIn do
     if Bcrypt.verify_pass(password, user.password_hash) do
       {:ok, user}
     else
-      {:error, :email_or_password_invalid}
+      {:error, "username or password invalid"}
     end
   end
 end
