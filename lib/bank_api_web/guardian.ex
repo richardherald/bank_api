@@ -12,8 +12,9 @@ defmodule BankApiWeb.Guardian do
   end
 
   def resource_from_claims(claims) do
-    id = claims["sub"]
-    resource = UserRepo.get_user!(id)
-    {:ok, resource}
+    user = UserRepo.get_user!(claims["sub"])
+    {:ok, user}
+  rescue
+    Ecto.NoResultsError -> {:error, :unauthorized}
   end
 end
