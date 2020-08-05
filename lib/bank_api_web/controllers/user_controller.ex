@@ -1,7 +1,7 @@
 defmodule BankApiWeb.UserController do
   use BankApiWeb, :controller
 
-  alias BankApi.Users.{SignIn}
+  alias BankApi.Users.SignIn
   alias BankApiWeb.Guardian
 
   action_fallback BankApiWeb.FallbackController
