@@ -1,11 +1,11 @@
 defmodule BankApiWeb.UserView do
   use BankApiWeb, :view
 
-  def render("sign_in.json", %{user: user}) do
+  def render("sign_in.json", %{token: token}) do
     %{
       status: "ok",
       data: %{
-        name: user.name
+        token: token
       }
     }
   end
