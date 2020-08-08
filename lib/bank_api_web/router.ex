@@ -20,5 +20,7 @@ defmodule BankApiWeb.Router do
     pipe_through :api_auth
 
     get "/users/:id", UserController, :get_user
+
+    post "/operations/transfer", OperationController, :transfer
   end
 end

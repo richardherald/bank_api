@@ -12,7 +12,30 @@ defmodule BankApiWeb.FallbackController do
     conn
     |> put_status(:not_found)
     |> put_view(BankApiWeb.ErrorView)
-    |> render("error_message.json", message: "not_found")
+    |> render("error_message.json", message: "Not found")
+  end
+
+  def call(conn, {:error, message}) when message == :transfer_your_own_account do
+    conn
+    |> put_status(:unprocessable_entity)
+    |> put_view(BankApiWeb.ErrorView)
+    |> render("error_message.json", message: "You cannot transfer to your own account")
+  end
+
+  def call(conn, {:error, message}) when message == :insufficient_funds do
+    conn
+    |> put_status(:unprocessable_entity)
+    |> put_view(BankApiWeb.ErrorView)
+    |> render("error_message.json",
+      message: "You don't have enough balance to perform this operation"
+    )
+  end
+
+  def call(conn, {:error, message}) when message == :account_not_found do
+    conn
+    |> put_status(:unprocessable_entity)
+    |> put_view(BankApiWeb.ErrorView)
+    |> render("error_message.json", message: "Account not found")
   end
 
   def call(conn, {:error, message}) do
