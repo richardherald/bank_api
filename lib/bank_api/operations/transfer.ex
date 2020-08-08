@@ -3,9 +3,9 @@ defmodule BankApi.Operations.Transfer do
   Transfer module
   """
 
-  alias BankApi.Users.Schema.Account
-  alias BankApi.Users.AccountRepo
   alias BankApi.Repo
+  alias BankApi.Users.AccountRepo
+  alias BankApi.Users.Schema.Account
 
   def run(from_id, to_id, value) do
     multi =
@@ -33,12 +33,7 @@ defmodule BankApi.Operations.Transfer do
 
     case Repo.transaction(multi) do
       {:ok, %{from: from, to: to}} -> {:ok, from, to}
-      {:error, :is_own_account, changeset, _} -> {:error, changeset}
-      {:error, :account_from, changeset, _} -> {:error, changeset}
-      {:error, :account_to, changeset, _} -> {:error, changeset}
-      {:error, :is_negative, changeset, _} -> {:error, changeset}
-      {:error, :from, changeset, _} -> {:error, changeset}
-      {:error, :to, changeset, _} -> {:error, changeset}
+      {:error, _, changeset, _} -> {:error, changeset}
     end
   end
 
