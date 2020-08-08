@@ -9,7 +9,7 @@ defmodule BankApiWeb.OperationController do
   def transfer(conn, %{"to" => to_id, "value" => value}) do
     user = Guardian.Plug.current_resource(conn)
 
-    with {:ok, from, to} <- Transfer.run(user.accounts.id, to_id, value) do
+    with {:ok, _, _} <- Transfer.run(user.accounts.id, to_id, value) do
       render(conn, "transfer.json", %{})
     end
   end
