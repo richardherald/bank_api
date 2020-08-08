@@ -32,8 +32,11 @@ defmodule BankApiWeb.OperationControllerTest do
 
       conn = post(conn, "/api/v1/operations/transfer", params)
 
-      assert %{"errors" => %{"message" => ["You don't have enough balance to perform this operation"]}} =
-               json_response(conn, 422)
+      assert %{
+               "errors" => %{
+                 "message" => ["You don't have enough balance to perform this operation"]
+               }
+             } = json_response(conn, 422)
     end
 
     test "returns error when account not found", %{conn: conn} do
