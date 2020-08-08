@@ -7,6 +7,6 @@ defmodule BankApi.Users.UserRepo do
   alias BankApi.Users.Schema.User
 
   def get_user!(id) do
-    Repo.get!(User, id)
+    Repo.get!(User, id) |> Repo.preload(:accounts)
   end
 end
