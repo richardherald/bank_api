@@ -10,7 +10,7 @@ defmodule BankApiWeb.OperationControllerTest do
       %{conn: conn}
     end
 
-    test "returns 200 when transfer is successfully", %{conn: conn} do
+    test "returns 200 when transfer is sucessful", %{conn: conn} do
       user = insert(:user, email: "ygor@gmail.com")
 
       params = %{

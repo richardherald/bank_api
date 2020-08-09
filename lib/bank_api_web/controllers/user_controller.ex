@@ -2,10 +2,18 @@ defmodule BankApiWeb.UserController do
   use BankApiWeb, :controller
 
   alias BankApi.Users.Schema.User
-  alias BankApi.Users.{GetUser, SignIn}
+  alias BankApi.Users.{CreateUser, GetUser, SignIn}
   alias BankApiWeb.Guardian
 
   action_fallback BankApiWeb.FallbackController
+
+  def sign_up(conn, params) do
+    with {:ok, user, account} <- CreateUser.run(params) do
+      conn
+      |> put_status(:created)
+      |> render("sign_up.json", %{user: user, account: account})
+    end
+  end
 
   def sign_in(conn, %{"email" => email, "password" => password}) do
     with {:ok, user} <- SignIn.run(email, password) do
