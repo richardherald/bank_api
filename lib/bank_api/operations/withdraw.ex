@@ -11,15 +11,15 @@ defmodule BankApi.Operations.Withdraw do
     multi =
       Ecto.Multi.new()
       |> Ecto.Multi.run(:is_negative_balance, fn _, _ ->
-        case is_negative_balance?(value) do
-          true -> {:error, :negative_balance}
+        case is_negative_value?(value) do
+          true -> {:error, :negative_value}
           false -> {:ok, false}
         end
       end)
       |> Ecto.Multi.run(:account_from, fn _, _ -> get_account(from_id) end)
-      |> Ecto.Multi.run(:is_insufficient_negative, fn _, %{account_from: account_from} ->
+      |> Ecto.Multi.run(:is_insufficient_balance, fn _, %{account_from: account_from} ->
         case is_insufficient_balance?(account_from.balance, value) do
-          true -> {:error, :insufficient_funds}
+          true -> {:error, :insufficient_balance}
           false -> {:ok, false}
         end
       end)
@@ -40,7 +40,7 @@ defmodule BankApi.Operations.Withdraw do
     end
   end
 
-  def is_negative_balance?(value) do
+  def is_negative_value?(value) do
     Decimal.new(value) |> Decimal.negative?()
   end
 

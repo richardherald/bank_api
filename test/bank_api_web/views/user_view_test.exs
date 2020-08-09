@@ -3,8 +3,6 @@ defmodule BankApiWeb.UserViewTest do
 
   alias BankApiWeb.UserView
 
-  import BankApi.Factory
-
   describe "render/2" do
     test "returns ok and token" do
       assert %{data: %{token: "123"}} = UserView.render("sign_in.json", %{token: "123"})

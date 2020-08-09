@@ -22,7 +22,7 @@ defmodule BankApiWeb.FallbackController do
     |> render("error_message.json", message: "You cannot transfer to your own account")
   end
 
-  def call(conn, {:error, message}) when message == :insufficient_funds do
+  def call(conn, {:error, message}) when message == :insufficient_balance do
     conn
     |> put_status(:unprocessable_entity)
     |> put_view(BankApiWeb.ErrorView)
@@ -31,7 +31,7 @@ defmodule BankApiWeb.FallbackController do
     )
   end
 
-  def call(conn, {:error, message}) when message == :negative_balance do
+  def call(conn, {:error, message}) when message == :negative_value do
     conn
     |> put_status(:unprocessable_entity)
     |> put_view(BankApiWeb.ErrorView)
