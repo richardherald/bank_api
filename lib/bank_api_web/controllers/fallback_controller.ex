@@ -31,6 +31,15 @@ defmodule BankApiWeb.FallbackController do
     )
   end
 
+  def call(conn, {:error, message}) when message == :negative_balance do
+    conn
+    |> put_status(:unprocessable_entity)
+    |> put_view(BankApiWeb.ErrorView)
+    |> render("error_message.json",
+      message: "The value cannot be negative"
+    )
+  end
+
   def call(conn, {:error, message}) when message == :account_not_found do
     conn
     |> put_status(:unprocessable_entity)

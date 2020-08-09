@@ -49,4 +49,36 @@ defmodule BankApiWeb.OperationControllerTest do
       assert %{"errors" => %{"message" => ["Account not found"]}} = json_response(conn, 422)
     end
   end
+
+  describe "withdraw/2" do
+    setup %{conn: conn} do
+      conn = authenticate(conn)
+      %{conn: conn}
+    end
+
+    test "returns 200 when withdraw is sucessful", %{conn: conn} do
+      conn = post(conn, "/api/v1/operations/withdraw", %{"value" => "100"})
+      assert %{"status" => "ok"} = json_response(conn, 200)
+    end
+
+    test "returns 422 when value is negative", %{conn: conn} do
+      conn = post(conn, "/api/v1/operations/withdraw", %{"value" => "-100"})
+
+      assert %{
+               "errors" => %{
+                 "message" => ["The value cannot be negative"]
+               }
+             } = json_response(conn, 422)
+    end
+
+    test "returns 422 when there is not enough balance", %{conn: conn} do
+      conn = post(conn, "/api/v1/operations/withdraw", %{"value" => "10000"})
+
+      assert %{
+               "errors" => %{
+                 "message" => ["You don't have enough balance to perform this operation"]
+               }
+             } = json_response(conn, 422)
+    end
+  end
 end
