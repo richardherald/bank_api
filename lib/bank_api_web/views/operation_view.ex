@@ -6,4 +6,10 @@ defmodule BankApiWeb.OperationView do
       status: "ok"
     }
   end
+
+  def render("withdraw.json", %{}) do
+    %{
+      status: "ok"
+    }
+  end
 end

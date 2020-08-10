@@ -23,5 +23,6 @@ defmodule BankApiWeb.Router do
     get "/users/:id", UserController, :get_user
 
     post "/operations/transfer", OperationController, :transfer
+    post "/operations/withdraw", OperationController, :withdraw
   end
 end

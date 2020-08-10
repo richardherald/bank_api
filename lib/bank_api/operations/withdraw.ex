@@ -1,4 +1,4 @@
-defmodule BankApi.Operations.Transfer do
+defmodule BankApi.Operations.Withdraw do
   @moduledoc """
   Transfer module
   """
@@ -7,16 +7,10 @@ defmodule BankApi.Operations.Transfer do
   alias BankApi.Users.AccountRepo
   alias BankApi.Users.Schema.Account
 
-  def run(from_id, to_id, value) do
+  def run(from_id, value) do
     multi =
       Ecto.Multi.new()
-      |> Ecto.Multi.run(:is_own_account, fn _, _ ->
-        case is_own_account?(from_id, to_id) do
-          true -> {:error, :transfer_your_own_account}
-          false -> {:ok, false}
-        end
-      end)
-      |> Ecto.Multi.run(:is_negative_value, fn _, _ ->
+      |> Ecto.Multi.run(:is_negative_balance, fn _, _ ->
         case is_negative_value?(value) do
           true -> {:error, :negative_value}
           false -> {:ok, false}
@@ -29,16 +23,12 @@ defmodule BankApi.Operations.Transfer do
           false -> {:ok, false}
         end
       end)
-      |> Ecto.Multi.run(:account_to, fn _, _ -> get_account(to_id) end)
       |> Ecto.Multi.update(:from, fn %{account_from: account_from} ->
         operation(account_from, value, :sub)
       end)
-      |> Ecto.Multi.update(:to, fn %{account_to: account_to} ->
-        operation(account_to, value, :add)
-      end)
 
     case Repo.transaction(multi) do
-      {:ok, %{from: from, to: to}} -> {:ok, from, to}
+      {:ok, %{from: from}} -> {:ok, from}
       {:error, _, changeset, _} -> {:error, changeset}
     end
   end
@@ -48,10 +38,6 @@ defmodule BankApi.Operations.Transfer do
       nil -> {:error, :account_not_found}
       account -> {:ok, account}
     end
-  end
-
-  def is_own_account?(from_id, to_id) do
-    from_id == to_id
   end
 
   def is_negative_value?(value) do
@@ -65,10 +51,5 @@ defmodule BankApi.Operations.Transfer do
   def operation(account, value, :sub) do
     account
     |> Account.changeset(%{balance: Decimal.sub(account.balance, value) |> Decimal.to_integer()})
-  end
-
-  def operation(account, value, :add) do
-    account
-    |> Account.changeset(%{balance: Decimal.add(account.balance, value) |> Decimal.to_integer()})
   end
 end
