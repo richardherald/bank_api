@@ -36,5 +36,6 @@ defmodule BankApiWeb.Router do
     pipe_through :api
 
     post "/sign_up", AdminController, :sign_up
+    post "/sign_in", AdminController, :sign_in
   end
 end

@@ -9,4 +9,12 @@ defmodule BankApiWeb.AdminView do
       }
     }
   end
+
+  def render("sign_in.json", %{token: token}) do
+    %{
+      data: %{
+        token: token
+      }
+    }
+  end
 end
