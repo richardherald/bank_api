@@ -5,10 +5,9 @@ defmodule BankApi.Repo.Migrations.CreateTransactions do
     create table(:transactions, primary_key: false) do
       add :id, :uuid, primary_key: true
       add :value, :integer, null: false
-      add :account_from_id, references(:accounts, name: :account_from_id, type: :uuid), null: false
-      add :account_to_id, references(:accounts, name: :account_to_id, type: :uuid)
+      add :account_id, references(:accounts, name: :account_id, type: :uuid), null: false
       add :type, :string, null: false
-      add :date, :date, null: false
+      add :transaction_link_id, :uuid
 
       timestamps()
     end
