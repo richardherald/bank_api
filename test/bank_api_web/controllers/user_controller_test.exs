@@ -1,4 +1,4 @@
-defmodule BankApiWeb.UserControllerTest do
+git defmodule BankApiWeb.UserControllerTest do
   use BankApiWeb.ConnCase, async: true
 
   import BankApi.Factory
@@ -125,17 +125,17 @@ defmodule BankApiWeb.UserControllerTest do
                }
              } = json_response(conn, 422)
     end
-  end
 
-  test "returns 422 when passwords is not equals", %{conn: conn} do
-    user = params_for(:user, password_confirmation: "12345")
+    test "returns 422 when passwords is not equals", %{conn: conn} do
+      user = params_for(:user, password_confirmation: "12345")
 
-    conn = post(conn, "/api/v1/sign_up", user)
+      conn = post(conn, "/api/v1/sign_up", user)
 
-    assert %{
-             "errors" => %{
-               "password_confirmation" => ["Passwords are different"]
-             }
-           } = json_response(conn, 422)
+      assert %{
+               "errors" => %{
+                 "password_confirmation" => ["Passwords are different"]
+               }
+             } = json_response(conn, 422)
+    end
   end
 end
