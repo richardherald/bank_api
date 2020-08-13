@@ -6,6 +6,7 @@ defmodule BankApi.Factory do
 
   alias BankApi.Transactions.Schema.Transaction
   alias BankApi.Users.Schema.{Account, User}
+  alias BankApi.Admins.Schema.Admin
 
   def user_factory do
     %User{
@@ -30,6 +31,15 @@ defmodule BankApi.Factory do
       value: 100,
       type: "transfer",
       inserted_at: DateTime.utc_now()
+    }
+  end
+
+  def admin_factory do
+    %Admin{
+      email: "admin@gmail.com",
+      password: "123456",
+      password_confirmation: "123456",
+      password_hash: Bcrypt.hash_pwd_salt("123456")
     }
   end
 end
