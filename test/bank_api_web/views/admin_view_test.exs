@@ -16,4 +16,8 @@ defmodule BankApiWeb.AdminViewTest do
                AdminView.render("sign_up.json", %{admin: admin})
     end
   end
+
+  test "returns ok and token" do
+    assert %{data: %{token: "123"}} = AdminView.render("sign_in.json", %{token: "123"})
+  end
 end
