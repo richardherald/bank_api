@@ -1,4 +1,4 @@
-defmodule BankApi.Users.AdminRepo do
+defmodule BankApi.Admins.AdminRepo do
   @moduledoc """
   User repository
   """

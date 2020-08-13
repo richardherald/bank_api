@@ -34,11 +34,11 @@ config :bank_api, BankApiWeb.AuthUserAccessPipeline,
   module: BankApiWeb.GuardianUser,
   error_handler: BankApiWeb.AuthErrorHandler
 
-  config :bank_api, BankApiWeb.GuardianAdmin,
+config :bank_api, BankApiWeb.GuardianAdmin,
   issuer: "bank_api_admin",
   secret_key: "SW9vfiao+YG2Pn5Dt/JTWm87NZTRSV9iMVBmWXEaIZE7mKSmKBKYYiNKrSmyFNdu"
 
-  config :bank_api, BankApiWeb.AuthAdminAccessPipeline,
+config :bank_api, BankApiWeb.AuthAdminAccessPipeline,
   module: BankApiWeb.GuardianAdmin,
   error_handler: BankApiWeb.AuthErrorHandler
 

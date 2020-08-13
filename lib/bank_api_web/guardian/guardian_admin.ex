@@ -12,8 +12,8 @@ defmodule BankApiWeb.GuardianAdmin do
   end
 
   def resource_from_claims(claims) do
-    user = AdminRepo.get_admin!(claims["sub"])
-    {:ok, user}
+    admin = AdminRepo.get_admin!(claims["sub"])
+    {:ok, admin}
   rescue
     Ecto.NoResultsError -> {:error, :unauthorized}
   end
