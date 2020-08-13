@@ -4,8 +4,12 @@ defmodule BankApi.Operations.Transfer do
   """
 
   alias BankApi.Repo
+  alias BankApi.Transactions.Schema.Transaction
   alias BankApi.Users.AccountRepo
   alias BankApi.Users.Schema.Account
+
+  @withdraw "withdraw"
+  @deposit "deposit"
 
   def run(from_id, to_id, value) do
     multi =
@@ -30,15 +34,33 @@ defmodule BankApi.Operations.Transfer do
         end
       end)
       |> Ecto.Multi.run(:account_to, fn _, _ -> get_account(to_id) end)
-      |> Ecto.Multi.update(:from, fn %{account_from: account_from} ->
+      |> Ecto.Multi.update(:update_account_from, fn %{account_from: account_from} ->
         operation(account_from, value, :sub)
       end)
-      |> Ecto.Multi.update(:to, fn %{account_to: account_to} ->
+      |> Ecto.Multi.update(:update_account_to, fn %{account_to: account_to} ->
         operation(account_to, value, :add)
       end)
+      |> Ecto.Multi.insert(:transaction_from, fn %{account_from: account_from} ->
+        validate_transaction(account_from, value, @withdraw)
+      end)
+      |> Ecto.Multi.insert(:transaction_to, fn %{account_to: account_to} ->
+        validate_transaction(account_to, value, @deposit)
+      end)
+      |> Ecto.Multi.update(
+        :transaction_link_from,
+        fn %{transaction_from: transaction_from, transaction_to: transaction_to} ->
+          validate_transaction_link(transaction_from, transaction_to.id)
+        end
+      )
+      |> Ecto.Multi.update(
+        :transaction_link_to,
+        fn %{transaction_to: transaction_to, transaction_from: transaction_from} ->
+          validate_transaction_link(transaction_to, transaction_from.id)
+        end
+      )
 
     case Repo.transaction(multi) do
-      {:ok, %{from: from, to: to}} -> {:ok, from, to}
+      {:ok, %{update_account_from: from, update_account_to: to}} -> {:ok, from, to}
       {:error, _, changeset, _} -> {:error, changeset}
     end
   end
@@ -70,5 +92,19 @@ defmodule BankApi.Operations.Transfer do
   def operation(account, value, :add) do
     account
     |> Account.changeset(%{balance: Decimal.add(account.balance, value) |> Decimal.to_integer()})
+  end
+
+  def validate_transaction(account, value, type) do
+    %Transaction{
+      value: value,
+      account: account,
+      type: type
+    }
+    |> Transaction.changeset()
+  end
+
+  def validate_transaction_link(transaction, transaction_link_id) do
+    transaction
+    |> Transaction.changeset(%{transaction_link_id: transaction_link_id})
   end
 end

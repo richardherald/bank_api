@@ -4,6 +4,7 @@ defmodule BankApi.Factory do
   """
   use ExMachina.Ecto, repo: BankApi.Repo
 
+  alias BankApi.Transactions.Schema.Transaction
   alias BankApi.Users.Schema.{Account, User}
 
   def user_factory do
@@ -20,6 +21,15 @@ defmodule BankApi.Factory do
   def account_factory do
     %Account{
       balance: 1000
+    }
+  end
+
+  def transaction_factory do
+    %Transaction{
+      account: build(:account),
+      value: 100,
+      type: "transfer",
+      inserted_at: DateTime.utc_now()
     }
   end
 end

@@ -24,5 +24,7 @@ defmodule BankApiWeb.Router do
 
     post "/operations/transfer", OperationController, :transfer
     post "/operations/withdraw", OperationController, :withdraw
+
+    get "/transactions", TransactionController, :transactions
   end
 end
