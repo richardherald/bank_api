@@ -27,7 +27,7 @@ defmodule BankApiWeb.OperationControllerTest do
 
       params = %{
         "to" => user.accounts.id,
-        "value" => 10000
+        "value" => 10_000
       }
 
       conn = post(conn, "/api/v1/operations/transfer", params)
