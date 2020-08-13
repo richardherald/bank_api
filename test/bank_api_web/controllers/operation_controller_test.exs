@@ -15,7 +15,7 @@ defmodule BankApiWeb.OperationControllerTest do
 
       params = %{
         "to" => user.accounts.id,
-        "value" => "100"
+        "value" => 100
       }
 
       conn = post(conn, "/api/v1/operations/transfer", params)
@@ -27,7 +27,7 @@ defmodule BankApiWeb.OperationControllerTest do
 
       params = %{
         "to" => user.accounts.id,
-        "value" => "10000"
+        "value" => 10000
       }
 
       conn = post(conn, "/api/v1/operations/transfer", params)
@@ -42,7 +42,7 @@ defmodule BankApiWeb.OperationControllerTest do
     test "returns error when account not found", %{conn: conn} do
       params = %{
         "to" => "0b386772-7397-45be-9a43-3fb12a617bb1",
-        "value" => "100"
+        "value" => 100
       }
 
       conn = post(conn, "/api/v1/operations/transfer", params)
@@ -57,7 +57,7 @@ defmodule BankApiWeb.OperationControllerTest do
     end
 
     test "returns 200 when withdraw is sucessful", %{conn: conn} do
-      conn = post(conn, "/api/v1/operations/withdraw", %{"value" => "100"})
+      conn = post(conn, "/api/v1/operations/withdraw", %{"value" => 100})
       assert %{"status" => "ok"} = json_response(conn, 200)
     end
 
