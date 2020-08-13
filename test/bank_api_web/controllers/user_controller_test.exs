@@ -1,4 +1,4 @@
-git defmodule BankApiWeb.UserControllerTest do
+defmodule BankApiWeb.UserControllerTest do
   use BankApiWeb.ConnCase, async: true
 
   import BankApi.Factory
