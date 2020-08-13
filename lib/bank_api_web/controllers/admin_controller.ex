@@ -2,8 +2,6 @@ defmodule BankApiWeb.AdminController do
   use BankApiWeb, :controller
 
   alias BankApi.Admins.CreateAdmin
-  alias BankApi.Admins.Schema.Admin
-  alias BankApiWeb.Guardian
 
   action_fallback BankApiWeb.FallbackController
 
