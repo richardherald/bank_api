@@ -1,10 +1,10 @@
-defmodule BankApiWeb.Guardian do
+defmodule BankApiWeb.GuardianAdmin do
   @moduledoc """
-  Guardian module
+  Guardian Admin module
   """
   use Guardian, otp_app: :bank_api
 
-  alias BankApi.Users.UserRepo
+  alias BankApi.Admins.AdminRepo
 
   def subject_for_token(resource, _claims) do
     sub = to_string(resource.id)
@@ -12,7 +12,7 @@ defmodule BankApiWeb.Guardian do
   end
 
   def resource_from_claims(claims) do
-    user = UserRepo.get_user!(claims["sub"])
+    user = AdminRepo.get_admin!(claims["sub"])
     {:ok, user}
   rescue
     Ecto.NoResultsError -> {:error, :unauthorized}

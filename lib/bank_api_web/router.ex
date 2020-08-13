@@ -6,12 +6,11 @@ defmodule BankApiWeb.Router do
   end
 
   pipeline :api_auth do
-    plug BankApiWeb.AuthAccessPipeline
+    plug BankApiWeb.AuthUserAccessPipeline
   end
 
   pipeline :api_admin_auth do
-    plug :accepts, ["json"]
-    plug BankApiWeb.AuthAccessPipeline
+    plug BankApiWeb.AuthAdminAccessPipeline
   end
 
   scope "/api/v1", BankApiWeb do
@@ -22,7 +21,7 @@ defmodule BankApiWeb.Router do
   end
 
   scope "/api/v1", BankApiWeb do
-    pipe_through :api_auth
+    pipe_through [:api, :api_auth]
 
     get "/users/:id", UserController, :get_user
 

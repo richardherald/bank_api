@@ -1,4 +1,4 @@
-defmodule BankApiWeb.AuthAccessPipeline do
+defmodule BankApiWeb.AuthUserAccessPipeline do
   @moduledoc """
   Pipeline Authorization module
   """
