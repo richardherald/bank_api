@@ -3,8 +3,8 @@ defmodule BankApi.Admins.CreateAdmin do
   Creating a new admin
   """
 
-  alias BankApi.Repo
   alias BankApi.Admins.Schema.Admin
+  alias BankApi.Repo
 
   def run(params) do
     multi =

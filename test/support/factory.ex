@@ -4,9 +4,9 @@ defmodule BankApi.Factory do
   """
   use ExMachina.Ecto, repo: BankApi.Repo
 
+  alias BankApi.Admins.Schema.Admin
   alias BankApi.Transactions.Schema.Transaction
   alias BankApi.Users.Schema.{Account, User}
-  alias BankApi.Admins.Schema.Admin
 
   def user_factory do
     %User{
