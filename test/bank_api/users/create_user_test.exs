@@ -1,4 +1,4 @@
-defmodule BankApi.CreateAdminTest do
+defmodule BankApi.CreateUserTest do
   use BankApi.DataCase, async: true
 
   import BankApi.Factory
