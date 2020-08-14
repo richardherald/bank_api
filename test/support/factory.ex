@@ -29,7 +29,7 @@ defmodule BankApi.Factory do
     %Transaction{
       account: build(:account),
       value: 100,
-      type: "transfer",
+      type: "withdraw",
       inserted_at: DateTime.utc_now()
     }
   end

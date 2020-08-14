@@ -6,8 +6,8 @@ defmodule BankApiWeb.AdminAuth do
   import BankApi.Factory
   import Plug.Conn
 
-  def authenticate(conn, user \\ insert(:user)) do
-    {:ok, token, _} = BankApiWeb.GuardianAdmin.encode_and_sign(user)
+  def authenticate(conn, admin \\ insert(:admin)) do
+    {:ok, token, _} = BankApiWeb.GuardianAdmin.encode_and_sign(admin)
 
     conn
     |> put_req_header("authorization", "Bearer " <> token)
