@@ -3,8 +3,8 @@ defmodule BankApi.Admins.AdminRepo do
   User repository
   """
 
+  alias BankApi.Admins.Schema.Admin
   alias BankApi.Repo
-  alias BankApi.Users.Schema.Admin
 
   def get_admin!(id) do
     Repo.get!(Admin, id)
