@@ -20,7 +20,8 @@ defmodule BankApi.TransferTest do
       account_from = insert(:user)
       account_to = insert(:user, email: "ygor@gmail.com")
 
-      {:error, :negative_value} = Transfer.run(account_from.accounts.id, account_to.accounts.id, -100)
+      {:error, :negative_value} =
+        Transfer.run(account_from.accounts.id, account_to.accounts.id, -100)
     end
 
     test "returns error when the balance is insufficient for transfer" do
