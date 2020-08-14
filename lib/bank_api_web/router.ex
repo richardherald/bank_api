@@ -37,4 +37,10 @@ defmodule BankApiWeb.Router do
     post "/sign_up", AdminController, :sign_up
     post "/sign_in", AdminController, :sign_in
   end
+
+  scope "/api/v1/admin", BankApiWeb do
+    pipe_through [:api, :api_admin_auth]
+
+    get "/report", ReportController, :report
+  end
 end
