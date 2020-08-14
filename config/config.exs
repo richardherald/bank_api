@@ -26,12 +26,20 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
-config :bank_api, BankApiWeb.Guardian,
+config :bank_api, BankApiWeb.GuardianUser,
   issuer: "bank_api",
-  secret_key: "12VuT/D0iq7sLoU/4XU8AfEV+kdcMJ9qJauA00zsiwmVIKn5+hhny7v6dOZuGY5Q"
+  secret_key: "eygyjfmkGPPlVy8P/+5fe+LnHBYO1NOjctzvftQeU5cPbUJZW1iPHNvRU0pHWDXs"
 
-config :bank_api, BankApiWeb.AuthAccessPipeline,
-  module: BankApiWeb.Guardian,
+config :bank_api, BankApiWeb.AuthUserAccessPipeline,
+  module: BankApiWeb.GuardianUser,
+  error_handler: BankApiWeb.AuthErrorHandler
+
+config :bank_api, BankApiWeb.GuardianAdmin,
+  issuer: "bank_api_admin",
+  secret_key: "SW9vfiao+YG2Pn5Dt/JTWm87NZTRSV9iMVBmWXEaIZE7mKSmKBKYYiNKrSmyFNdu"
+
+config :bank_api, BankApiWeb.AuthAdminAccessPipeline,
+  module: BankApiWeb.GuardianAdmin,
   error_handler: BankApiWeb.AuthErrorHandler
 
 # Import environment specific config. This must remain at the bottom

@@ -7,7 +7,7 @@ defmodule BankApiWeb.UserAuth do
   import Plug.Conn
 
   def authenticate(conn, user \\ insert(:user)) do
-    {:ok, token, _} = BankApiWeb.Guardian.encode_and_sign(user)
+    {:ok, token, _} = BankApiWeb.GuardianUser.encode_and_sign(user)
 
     conn
     |> put_req_header("authorization", "Bearer " <> token)

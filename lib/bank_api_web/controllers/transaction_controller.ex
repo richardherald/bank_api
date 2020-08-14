@@ -2,7 +2,6 @@ defmodule BankApiWeb.TransactionController do
   use BankApiWeb, :controller
 
   alias BankApi.Transactions.Transactions
-  alias BankApiWeb.Guardian
 
   action_fallback BankApiWeb.FallbackController
 

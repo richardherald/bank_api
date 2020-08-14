@@ -2,7 +2,6 @@ defmodule BankApiWeb.OperationController do
   use BankApiWeb, :controller
 
   alias BankApi.Operations.{Transfer, Withdraw}
-  alias BankApiWeb.Guardian
 
   action_fallback BankApiWeb.FallbackController
 
