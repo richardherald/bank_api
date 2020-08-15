@@ -45,7 +45,8 @@ defmodule BankApi.MixProject do
       {:credo, "~> 1.4", only: [:dev, :test], runtime: false},
       {:bcrypt_elixir, "~> 2.0"},
       {:ex_machina, "~> 2.4", only: :test},
-      {:guardian, "~> 2.0"}
+      {:guardian, "~> 2.0"},
+      {:distillery, "~> 2.1", runtime: false}
     ]
   end
 
