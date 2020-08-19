@@ -7,6 +7,7 @@ defmodule BankApi.Operations.Withdraw do
   alias BankApi.Transactions.Schema.Transaction
   alias BankApi.Users.AccountRepo
   alias BankApi.Users.Schema.Account
+  alias BankApi.SendEmail
 
   @withdraw "withdraw"
 
@@ -34,7 +35,9 @@ defmodule BankApi.Operations.Withdraw do
       end)
 
     case Repo.transaction(multi) do
-      {:ok, %{update_account_from: from}} -> {:ok, from}
+      {:ok, %{update_account_from: from}} ->
+        Task.async(fn -> SendEmail.run() end)
+        {:ok, from}
       {:error, _, changeset, _} -> {:error, changeset}
     end
   end
