@@ -47,19 +47,18 @@ defmodule BankApiWeb.FallbackController do
     |> render("error_message.json", message: "Account not found")
   end
 
-  def call(conn, {:error, message}) when message == :invalid_date_format do
+  def call(conn, {:error, message}) when message == :username_password_invalid do
     conn
-    |> put_status(:unprocessable_entity)
+    |> put_status(:unauthorized)
     |> put_view(BankApiWeb.ErrorView)
     |> render("error_message.json",
-      message:
-        "Invalid date format. Check that parameters start_date or end_date are in the format yyyy-MM-dd"
+      message: "Username or password is invalid"
     )
   end
 
   def call(conn, {:error, message}) do
     conn
-    |> put_status(401)
+    |> put_status(:unauthorized)
     |> put_view(BankApiWeb.ErrorView)
     |> render("error_message.json", message: message)
   end
