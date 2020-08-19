@@ -38,7 +38,9 @@ defmodule BankApi.Operations.Withdraw do
       {:ok, %{update_account_from: from}} ->
         Task.async(fn -> SendEmail.run() end)
         {:ok, from}
-      {:error, _, changeset, _} -> {:error, changeset}
+
+      {:error, _, changeset, _} ->
+        {:error, changeset}
     end
   end
 
