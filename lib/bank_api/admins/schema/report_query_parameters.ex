@@ -1,4 +1,4 @@
-defmodule ApiBanking.Admins.Schema.ReportQueryParameters do
+defmodule BankApi.Admins.Schema.ReportQueryParameters do
   @moduledoc """
     Report Query Parameters
   """

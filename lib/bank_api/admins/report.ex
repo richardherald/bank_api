@@ -4,7 +4,7 @@ defmodule BankApi.Admins.Report do
   """
   import Ecto.Query, only: [from: 2]
 
-  alias ApiBanking.Admins.Schema.ReportQueryParameters
+  alias BankApi.Admins.Schema.ReportQueryParameters
   alias BankApi.Repo
   alias BankApi.Transactions.Schema.Transaction
 

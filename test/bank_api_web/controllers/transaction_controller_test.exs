@@ -67,25 +67,13 @@ defmodule BankApiWeb.TransactionControllerTest do
     test "returns 422 when start_date is invalid date format", %{conn: conn} do
       conn = get(conn, "/api/v1/transactions", %{"start_date" => nil, "end_date" => "2020-08-30"})
 
-      assert %{
-               "errors" => %{
-                 "message" => [
-                   "Invalid date format. Check that parameters start_date or end_date are in the format yyyy-MM-dd"
-                 ]
-               }
-             } = json_response(conn, 422)
+      assert %{"errors" => %{"start_date" => ["can't be blank"]}} = json_response(conn, 422)
     end
 
     test "returns 422 when end_date is invalid date format", %{conn: conn} do
       conn = get(conn, "/api/v1/transactions", %{"start_date" => "2020-01-01", "end_date" => nil})
 
-      assert %{
-               "errors" => %{
-                 "message" => [
-                   "Invalid date format. Check that parameters start_date or end_date are in the format yyyy-MM-dd"
-                 ]
-               }
-             } = json_response(conn, 422)
+      assert %{"errors" => %{"end_date" => ["can't be blank"]}} = json_response(conn, 422)
     end
   end
 end

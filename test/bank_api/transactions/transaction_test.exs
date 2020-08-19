@@ -5,15 +5,14 @@ defmodule BankApi.TransactionTest do
 
   alias BankApi.Transactions.Transactions
 
-  describe "run/3" do
+  describe "run/2" do
     test "returns list of transactions" do
       user_from = insert(:user)
       insert(:transaction, account: user_from.accounts)
 
-      start_date = "2019-01-01"
-      end_date = "2020-10-30"
+      params = %{start_date: "2019-01-01", end_date: "2020-08-30"}
 
-      {:ok, transactions} = Transactions.run(user_from.accounts.id, start_date, end_date)
+      {:ok, transactions} = Transactions.run(user_from.accounts.id, params)
       assert is_list(transactions.result)
       assert length(transactions.result) == 1
       assert transactions.total == 100
@@ -24,10 +23,9 @@ defmodule BankApi.TransactionTest do
     test "returns empty list of transactions" do
       user_from = insert(:user)
 
-      start_date = "2019-01-01"
-      end_date = "2020-08-30"
+      params = %{start_date: "2019-01-01", end_date: "2020-08-30"}
 
-      {:ok, transactions} = Transactions.run(user_from.accounts.id, start_date, end_date)
+      {:ok, transactions} = Transactions.run(user_from.accounts.id, params)
       assert is_list(transactions.result)
       assert Enum.empty?(transactions.result) == true
       assert transactions.total == 0
@@ -36,21 +34,23 @@ defmodule BankApi.TransactionTest do
     test "returns error when start_date is invalid date format" do
       user_from = insert(:user)
 
-      start_date = nil
-      end_date = "2020-08-30"
+      params = %{start_date: nil, end_date: "2020-08-30"}
 
-      {:error, :invalid_date_format} =
-        Transactions.run(user_from.accounts.id, start_date, end_date)
+      assert {:error, %Ecto.Changeset{} = changeset} =
+               Transactions.run(user_from.accounts.id, params)
+
+      %{start_date: ["can't be blank"]} = errors_on(changeset)
     end
 
     test "returns error when end_date is invalid date format" do
       user_from = insert(:user)
 
-      start_date = "2019-01-01"
-      end_date = nil
+      params = %{start_date: "2019-01-01", end_date: nil}
 
-      {:error, :invalid_date_format} =
-        Transactions.run(user_from.accounts.id, start_date, end_date)
+      assert {:error, %Ecto.Changeset{} = changeset} =
+               Transactions.run(user_from.accounts.id, params)
+
+      %{end_date: ["can't be blank"]} = errors_on(changeset)
     end
   end
 end

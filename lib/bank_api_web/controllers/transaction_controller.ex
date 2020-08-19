@@ -5,10 +5,10 @@ defmodule BankApiWeb.TransactionController do
 
   action_fallback BankApiWeb.FallbackController
 
-  def transactions(conn, %{"start_date" => start_date, "end_date" => end_date}) do
+  def transactions(conn, params) do
     user = Guardian.Plug.current_resource(conn)
 
-    with {:ok, transactions} <- Transactions.run(user.accounts.id, start_date, end_date) do
+    with {:ok, transactions} <- Transactions.run(user.accounts.id, params) do
       render(conn, "show.json", transactions: transactions)
     end
   end
