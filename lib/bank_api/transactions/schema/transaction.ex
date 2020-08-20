@@ -1,6 +1,6 @@
 defmodule BankApi.Transactions.Schema.Transaction do
   @moduledoc """
-  Account schema
+  Transaction schema
   """
   use Ecto.Schema
 
@@ -18,6 +18,7 @@ defmodule BankApi.Transactions.Schema.Transaction do
     timestamps()
   end
 
+  @doc false
   def changeset(transaction, params \\ %{}) do
     transaction
     |> cast(params, [:value, :type, :transaction_link_id])

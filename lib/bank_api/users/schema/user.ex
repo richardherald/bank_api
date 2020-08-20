@@ -18,6 +18,7 @@ defmodule BankApi.Users.Schema.User do
     timestamps()
   end
 
+  @doc false
   def changeset(user, params \\ %{}) do
     user
     |> cast(params, [:email, :name, :password, :password_confirmation])

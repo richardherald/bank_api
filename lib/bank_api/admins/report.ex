@@ -8,6 +8,22 @@ defmodule BankApi.Admins.Report do
   alias BankApi.Repo
   alias BankApi.Transactions.Schema.Transaction
 
+  @doc """
+  Returns the total transacted in a specific period
+
+  ## Parameters
+
+    * `date` - String date to be filtered
+    * `filter_by` - String filter period
+
+  ## Examples
+
+      iex> run(%{date: "20200801", filter_by: "day"})
+      {:ok, result}
+
+      iex> run(%{date: "20200801", filter_by: "other"})
+      {:error, %Ecto.Changeset{}}
+  """
   def run(params) do
     %ReportQueryParameters{}
     |> ReportQueryParameters.changeset(params)

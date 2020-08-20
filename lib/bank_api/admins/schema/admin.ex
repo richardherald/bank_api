@@ -1,6 +1,6 @@
 defmodule BankApi.Admins.Schema.Admin do
   @moduledoc """
-  User schema
+  Admin schema
   """
   use Ecto.Schema
   import Ecto.Changeset
@@ -16,6 +16,7 @@ defmodule BankApi.Admins.Schema.Admin do
     timestamps()
   end
 
+  @doc false
   def changeset(admin, params \\ %{}) do
     admin
     |> cast(params, [:email, :password, :password_confirmation])

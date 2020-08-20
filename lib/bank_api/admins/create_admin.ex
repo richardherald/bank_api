@@ -1,10 +1,28 @@
 defmodule BankApi.Admins.CreateAdmin do
   @moduledoc """
-  Creating a new admin
+  CreateAdmin module
   """
 
   alias BankApi.Admins.Schema.Admin
   alias BankApi.Repo
+
+  @doc """
+  Creating a new Admin
+
+  ## Parameters
+
+    * `email` - String email of the admin
+    * `password` - String password of the admin
+    * `password_confirmation` - String password_confirmation of the admin
+
+  ## Examples
+
+      iex> run(%{email: "admin@gmail.com", password: "123456", password_confirmation: "123456"})
+      {:ok, %Admin{}}
+
+      iex> run(%{email: "", password: "123456", password_confirmation: "123456"})
+      {:error, %Ecto.Changeset{}}
+  """
 
   def run(params) do
     multi =

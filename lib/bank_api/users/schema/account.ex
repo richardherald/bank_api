@@ -16,6 +16,7 @@ defmodule BankApi.Users.Schema.Account do
     timestamps()
   end
 
+  @doc false
   def changeset(account, params \\ %{}) do
     account
     |> cast(params, [:balance])

@@ -7,6 +7,22 @@ defmodule BankApi.Transactions.Transactions do
   alias BankApi.Repo
   alias BankApi.Transactions.Schema.{Transaction, TransactionQueryParameters}
 
+  @doc """
+  Returns a list of transactions in a specific period
+
+  ## Parameters
+
+    * `account_id` - String account id of the user logged
+    * `filter_by` - String filter period
+
+  ## Examples
+
+      iex> run(%{date: "20200801", filter_by: "day"})
+      {:ok, %{result: [{}], total: 100}}
+
+      iex> run(%{date: "20200801", filter_by: "other"})
+      {:error, %Ecto.Changeset{}}
+  """
   def run(account_id, params) do
     %TransactionQueryParameters{}
     |> TransactionQueryParameters.changeset(params)
