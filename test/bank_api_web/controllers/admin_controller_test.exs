@@ -116,7 +116,7 @@ defmodule BankApiWeb.AdminControllerTest do
       conn =
         post(conn, "/api/v1/admin/sign_in", %{"email" => "admingmail.com", "password" => "123456"})
 
-      assert %{"errors" => %{"message" => ["username or password invalid"]}} =
+      assert %{"errors" => %{"message" => ["Username or password is invalid"]}} =
                json_response(conn, 401)
     end
 
@@ -127,7 +127,7 @@ defmodule BankApiWeb.AdminControllerTest do
           "password" => "1234567"
         })
 
-      assert %{"errors" => %{"message" => ["username or password invalid"]}} =
+      assert %{"errors" => %{"message" => ["Username or password is invalid"]}} =
                json_response(conn, 401)
     end
   end

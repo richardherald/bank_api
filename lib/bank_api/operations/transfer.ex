@@ -21,7 +21,7 @@ defmodule BankApi.Operations.Transfer do
         end
       end)
       |> Ecto.Multi.run(:is_negative_value, fn _, _ ->
-        case is_negative_value?(value) do
+        case is_zero_or_negative_value?(value) do
           true -> {:error, :negative_value}
           false -> {:ok, false}
         end
@@ -65,36 +65,36 @@ defmodule BankApi.Operations.Transfer do
     end
   end
 
-  def get_account(id) do
+  defp get_account(id) do
     case AccountRepo.get_account(id) do
       nil -> {:error, :account_not_found}
       account -> {:ok, account}
     end
   end
 
-  def is_own_account?(from_id, to_id) do
+  defp is_own_account?(from_id, to_id) do
     from_id == to_id
   end
 
-  def is_negative_value?(value) do
-    Decimal.new(value) |> Decimal.negative?()
+  defp is_zero_or_negative_value?(value) do
+    if value == 0 or Decimal.new(value) |> Decimal.negative?(), do: true, else: false
   end
 
-  def is_insufficient_balance?(from_value, value) do
+  defp is_insufficient_balance?(from_value, value) do
     Decimal.sub(from_value, value) |> Decimal.negative?()
   end
 
-  def operation(account, value, :sub) do
+  defp operation(account, value, :sub) do
     account
     |> Account.changeset(%{balance: Decimal.sub(account.balance, value) |> Decimal.to_integer()})
   end
 
-  def operation(account, value, :add) do
+  defp operation(account, value, :add) do
     account
     |> Account.changeset(%{balance: Decimal.add(account.balance, value) |> Decimal.to_integer()})
   end
 
-  def validate_transaction(account, value, type) do
+  defp validate_transaction(account, value, type) do
     %Transaction{
       value: value,
       account: account,
@@ -103,7 +103,7 @@ defmodule BankApi.Operations.Transfer do
     |> Transaction.changeset()
   end
 
-  def validate_transaction_link(transaction, transaction_link_id) do
+  defp validate_transaction_link(transaction, transaction_link_id) do
     transaction
     |> Transaction.changeset(%{transaction_link_id: transaction_link_id})
   end

@@ -1,6 +1,6 @@
 defmodule BankApi.Operations.Withdraw do
   @moduledoc """
-  Transfer module
+  Withdraw module
   """
 
   alias BankApi.Repo
@@ -15,7 +15,7 @@ defmodule BankApi.Operations.Withdraw do
     multi =
       Ecto.Multi.new()
       |> Ecto.Multi.run(:is_negative_balance, fn _, _ ->
-        case is_negative_value?(value) do
+        case is_zero_or_negative_value?(value) do
           true -> {:error, :negative_value}
           false -> {:ok, false}
         end
@@ -44,27 +44,27 @@ defmodule BankApi.Operations.Withdraw do
     end
   end
 
-  def get_account(id) do
+  defp get_account(id) do
     case AccountRepo.get_account(id) do
       nil -> {:error, :account_not_found}
       account -> {:ok, account}
     end
   end
 
-  def is_negative_value?(value) do
-    Decimal.new(value) |> Decimal.negative?()
+  defp is_zero_or_negative_value?(value) do
+    if value == 0 or Decimal.new(value) |> Decimal.negative?(), do: true, else: false
   end
 
-  def is_insufficient_balance?(from_value, value) do
+  defp is_insufficient_balance?(from_value, value) do
     Decimal.sub(from_value, value) |> Decimal.negative?()
   end
 
-  def operation(account, value, :sub) do
+  defp operation(account, value, :sub) do
     account
     |> Account.changeset(%{balance: Decimal.sub(account.balance, value) |> Decimal.to_integer()})
   end
 
-  def validate_transaction(account_from, value) do
+  defp validate_transaction(account_from, value) do
     %Transaction{
       value: value,
       account: account_from,

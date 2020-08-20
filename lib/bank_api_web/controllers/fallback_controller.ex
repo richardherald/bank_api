@@ -36,7 +36,7 @@ defmodule BankApiWeb.FallbackController do
     |> put_status(:unprocessable_entity)
     |> put_view(BankApiWeb.ErrorView)
     |> render("error_message.json",
-      message: "The value cannot be negative"
+      message: "The value cannot be zero or negative"
     )
   end
 

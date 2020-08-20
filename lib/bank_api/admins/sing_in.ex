@@ -1,6 +1,6 @@
 defmodule BankApi.Admins.SignIn do
   @moduledoc """
-  SignIn module
+  SignIn Admin module
   """
 
   alias BankApi.Admins.Schema.Admin
@@ -9,7 +9,7 @@ defmodule BankApi.Admins.SignIn do
   def run(email, password) do
     case Repo.get_by(Admin, email: email) do
       %Admin{} = admin -> verify_password(admin, password)
-      nil -> {:error, "username or password invalid"}
+      nil -> {:error, :username_password_invalid}
     end
   end
 
@@ -17,7 +17,7 @@ defmodule BankApi.Admins.SignIn do
     if Bcrypt.verify_pass(password, admin.password_hash) do
       {:ok, admin}
     else
-      {:error, "username or password invalid"}
+      {:error, :username_password_invalid}
     end
   end
 end

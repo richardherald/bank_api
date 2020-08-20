@@ -66,7 +66,7 @@ defmodule BankApiWeb.OperationControllerTest do
 
       assert %{
                "errors" => %{
-                 "message" => ["The value cannot be negative"]
+                 "message" => ["The value cannot be zero or negative"]
                }
              } = json_response(conn, 422)
     end

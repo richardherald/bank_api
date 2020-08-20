@@ -17,11 +17,11 @@ defmodule BankApi.SignInAdminTest do
     end
 
     test "returns error when username is invalid" do
-      assert {:error, "username or password invalid"} = SignIn.run("admingmail.com", "123456")
+      assert {:error, :username_password_invalid} = SignIn.run("admingmail.com", "123456")
     end
 
     test "returns error when password is invalid" do
-      assert {:error, "username or password invalid"} = SignIn.run("admin@gmail.com", "12345")
+      assert {:error, :username_password_invalid} = SignIn.run("admin@gmail.com", "12345")
     end
   end
 end
