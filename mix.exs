@@ -46,7 +46,8 @@ defmodule BankApi.MixProject do
       {:bcrypt_elixir, "~> 2.0"},
       {:ex_machina, "~> 2.4", only: :test},
       {:guardian, "~> 2.0"},
-      {:distillery, "~> 2.1", runtime: false}
+      {:distillery, "~> 2.1", runtime: false},
+      {:ex_doc, "~> 0.22", only: :dev, runtime: false}
     ]
   end
 
