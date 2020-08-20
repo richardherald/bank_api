@@ -11,6 +11,23 @@ defmodule BankApi.Operations.Transfer do
   @withdraw "withdraw"
   @deposit "deposit"
 
+  @doc """
+  Transferring money
+
+  ## Parameters
+
+    * `from_id` - String account id sending the money
+    * `to_id` - String account id receive the money
+    * `value` - Integer transfer amount
+
+  ## Examples
+
+      iex> run("0b386772-7397-45be-9a43-3fb12a617bb7", "0b386772-7397-45be-9a43-3fb12a611111", 100)
+      {:ok, %{account_from, account_to}}
+
+      iex> run("0b386772-7397-45be-9a43-3fb12a617bb7", "0b386772-7397-45be-9a43-3fb12a611111", -100)
+      {:error, :negative_value}
+  """
   def run(from_id, to_id, value) do
     multi =
       Ecto.Multi.new()

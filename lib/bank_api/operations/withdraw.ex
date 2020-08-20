@@ -4,13 +4,29 @@ defmodule BankApi.Operations.Withdraw do
   """
 
   alias BankApi.Repo
+  alias BankApi.SendEmail
   alias BankApi.Transactions.Schema.Transaction
   alias BankApi.Users.AccountRepo
   alias BankApi.Users.Schema.Account
-  alias BankApi.SendEmail
 
   @withdraw "withdraw"
 
+  @doc """
+  Withdrawing money
+
+  ## Parameters
+
+    * `from_id` - String account id withdraw the money
+    * `value` - Integer withdrawal amount
+
+  ## Examples
+
+      iex> run("0b386772-7397-45be-9a43-3fb12a617bb7", 100)
+      {:ok, account_from}
+
+      iex> run("0b386772-7397-45be-9a43-3fb12a617bb7", -100)
+      {:error, :negative_value}
+  """
   def run(from_id, value) do
     multi =
       Ecto.Multi.new()
