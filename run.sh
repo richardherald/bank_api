@@ -7,6 +7,6 @@ do
   sleep 2
 done
 
-mix ecto.migrate
+mix ecto.setup
 mix deps.get
 exec mix phx.server
