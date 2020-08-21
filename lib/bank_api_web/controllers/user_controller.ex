@@ -25,8 +25,6 @@ defmodule BankApiWeb.UserController do
   def get_user(conn, _params) do
     user = Guardian.Plug.current_resource(conn)
 
-    IO.inspect(user.id)
-
     with %User{} = user <- GetUser.run(user.id) do
       render(conn, "get_user.json", user: user)
     end
