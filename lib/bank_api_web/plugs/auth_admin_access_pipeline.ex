@@ -1,6 +1,6 @@
 defmodule BankApiWeb.AuthAdminAccessPipeline do
   @moduledoc """
-  Pipeline Authorization module
+  Pipeline Admin Authorization module
   """
   use Guardian.Plug.Pipeline, otp_app: :bank_api
 

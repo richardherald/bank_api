@@ -22,10 +22,13 @@ defmodule BankApiWeb.UserController do
     end
   end
 
-  def get_user(conn, %{"id" => id}) do
-    with %User{} = user <- GetUser.run(id) do
-      conn
-      |> render("get_user.json", user: user)
+  def get_user(conn, _params) do
+    user = Guardian.Plug.current_resource(conn)
+
+    IO.inspect(user.id)
+
+    with %User{} = user <- GetUser.run(user.id) do
+      render(conn, "get_user.json", user: user)
     end
   end
 end

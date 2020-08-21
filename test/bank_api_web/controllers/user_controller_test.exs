@@ -2,6 +2,30 @@ defmodule BankApiWeb.UserControllerTest do
   use BankApiWeb.ConnCase, async: true
 
   import BankApi.Factory
+  import BankApiWeb.UserAuth
+
+  describe "getuser/2" do
+    setup %{conn: conn} do
+      conn = authenticate(conn)
+      %{conn: conn}
+    end
+
+    test "returns 200 with a struct of user", %{conn: conn} do
+      user = insert(:user, email: "ygor@gmail.com", name: "ygor")
+      conn = authenticate(conn, user)
+
+      conn = get(conn, "/api/v1/users/logged_user")
+
+      assert %{
+               "data" => %{
+                 "account" => %{"balance" => 1000, "id" => _},
+                 "email" => "ygor@gmail.com",
+                 "id" => _,
+                 "name" => "ygor"
+               }
+             } = json_response(conn, 200)
+    end
+  end
 
   describe "signin/2" do
     setup %{conn: conn} do

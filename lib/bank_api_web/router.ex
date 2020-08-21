@@ -23,7 +23,7 @@ defmodule BankApiWeb.Router do
   scope "/api/v1", BankApiWeb do
     pipe_through [:api, :api_auth]
 
-    get "/users/:id", UserController, :get_user
+    get "/users/logged_user", UserController, :get_user
 
     post "/operations/transfer", OperationController, :transfer
     post "/operations/withdraw", OperationController, :withdraw
