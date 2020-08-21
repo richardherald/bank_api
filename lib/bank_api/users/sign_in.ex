@@ -30,7 +30,7 @@ defmodule BankApi.Users.SignIn do
   end
 
   defp verify_password(user, password) do
-    if Bcrypt.verify_pass(password, user.password_hash) do
+    if Argon2.verify_pass(password, user.password_hash) do
       {:ok, user}
     else
       {:error, :username_password_invalid}

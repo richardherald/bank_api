@@ -14,7 +14,7 @@ defmodule BankApi.Factory do
       email: "Richard@gmail.com",
       password: "123456",
       password_confirmation: "123456",
-      password_hash: Bcrypt.hash_pwd_salt("123456"),
+      password_hash: Argon2.hash_pwd_salt("123456"),
       accounts: build(:account)
     }
   end
@@ -39,7 +39,7 @@ defmodule BankApi.Factory do
       email: "admin@gmail.com",
       password: "123456",
       password_confirmation: "123456",
-      password_hash: Bcrypt.hash_pwd_salt("123456")
+      password_hash: Argon2.hash_pwd_salt("123456")
     }
   end
 end

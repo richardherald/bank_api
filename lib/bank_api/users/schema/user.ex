@@ -35,7 +35,7 @@ defmodule BankApi.Users.Schema.User do
   end
 
   defp put_password(%Ecto.Changeset{valid?: true, changes: %{password: password}} = changeset) do
-    put_change(changeset, :password_hash, Bcrypt.hash_pwd_salt(password))
+    put_change(changeset, :password_hash, Argon2.hash_pwd_salt(password))
   end
 
   defp put_password(changeset), do: changeset

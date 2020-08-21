@@ -30,7 +30,7 @@ defmodule BankApi.Admins.SignIn do
   end
 
   defp verify_password(admin, password) do
-    if Bcrypt.verify_pass(password, admin.password_hash) do
+    if Argon2.verify_pass(password, admin.password_hash) do
       {:ok, admin}
     else
       {:error, :username_password_invalid}
