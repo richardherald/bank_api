@@ -11,7 +11,7 @@ services:
       PG_HOSTNAME: database_test
       HOSTNAME_TEST: database_test
     build: .
-    command: sh -c "./run-test.sh"
+    command: sh -c "./run-test.sh && rm -r deps && rm -r _build/test"
     ports:
       - "4000:4000"
     working_dir: /app

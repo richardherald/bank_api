@@ -9,4 +9,6 @@ done
 
 mix ecto.setup
 mix deps.get
+cd deps/argon2_elixir && make clean && make
+cd ../..
 exec mix phx.server
