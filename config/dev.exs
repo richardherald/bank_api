@@ -5,7 +5,7 @@ config :bank_api, BankApi.Repo,
   username: "herald",
   password: "123456",
   database: "bank_api_dev",
-  hostname: "localhost",
+  hostname: System.get_env("HOSTNAME_DEV") || "localhost",
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
 
