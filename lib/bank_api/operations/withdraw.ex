@@ -32,7 +32,7 @@ defmodule BankApi.Operations.Withdraw do
       Ecto.Multi.new()
       |> Ecto.Multi.run(:is_negative_balance, fn _, _ ->
         case is_zero_or_negative_value?(value) do
-          true -> {:error, :negative_value}
+          true -> {:error, :zero_or_negative_value}
           false -> {:ok, false}
         end
       end)

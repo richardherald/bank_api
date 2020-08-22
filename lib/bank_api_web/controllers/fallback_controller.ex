@@ -31,7 +31,7 @@ defmodule BankApiWeb.FallbackController do
     )
   end
 
-  def call(conn, {:error, message}) when message == :negative_value do
+  def call(conn, {:error, message}) when message == :zero_or_negative_value do
     conn
     |> put_status(:unprocessable_entity)
     |> put_view(BankApiWeb.ErrorView)

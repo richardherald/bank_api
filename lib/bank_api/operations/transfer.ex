@@ -39,7 +39,7 @@ defmodule BankApi.Operations.Transfer do
       end)
       |> Ecto.Multi.run(:is_negative_value, fn _, _ ->
         case is_zero_or_negative_value?(value) do
-          true -> {:error, :negative_value}
+          true -> {:error, :zero_or_negative_value}
           false -> {:ok, false}
         end
       end)
