@@ -27,7 +27,7 @@ defmodule BankApiWeb.OperationControllerTest do
 
       params = %{
         "to" => user.accounts.id,
-        "value" => 10_000
+        "value" => 100_000_0
       }
 
       conn = post(conn, "/api/v1/operations/transfer", params)
@@ -72,7 +72,7 @@ defmodule BankApiWeb.OperationControllerTest do
     end
 
     test "returns 422 when there is not enough balance", %{conn: conn} do
-      conn = post(conn, "/api/v1/operations/withdraw", %{"value" => "10000"})
+      conn = post(conn, "/api/v1/operations/withdraw", %{"value" => "1000000"})
 
       assert %{
                "errors" => %{

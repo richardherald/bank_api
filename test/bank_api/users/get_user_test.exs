@@ -14,7 +14,7 @@ defmodule BankApi.GetUserTest do
       assert user.email == "Richard@gmail.com"
       refute user.password_hash == "123456"
 
-      assert user.accounts.balance == 1000
+      assert user.accounts.balance == 100000
     end
 
     test "returns nil when user not found" do
