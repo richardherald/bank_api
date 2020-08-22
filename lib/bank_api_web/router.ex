@@ -13,7 +13,7 @@ defmodule BankApiWeb.Router do
     plug BankApiWeb.AuthAdminAccessPipeline
   end
 
-  scope "/api/v1", BankApiWeb do
+  scope "/api/v1/users", BankApiWeb do
     pipe_through :api
 
     post "/sign_in", UserController, :sign_in

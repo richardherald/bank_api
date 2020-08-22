@@ -35,13 +35,13 @@ defmodule BankApiWeb.UserControllerTest do
 
     test "returns 200 when credentials are valid", %{conn: conn} do
       conn =
-        post(conn, "/api/v1/sign_in", %{"email" => "Richard@gmail.com", "password" => "123456"})
+        post(conn, "/api/v1/users/sign_in", %{"email" => "Richard@gmail.com", "password" => "123456"})
 
       assert %{"data" => %{"token" => _}} = json_response(conn, 200)
     end
 
     test "returns 401 when email is invalid", %{conn: conn} do
-      conn = post(conn, "/api/v1/sign_in", %{"email" => "ri@gmail.com", "password" => "123456"})
+      conn = post(conn, "/api/v1/users/sign_in", %{"email" => "ri@gmail.com", "password" => "123456"})
 
       assert %{"errors" => %{"message" => ["Username or password is invalid"]}} =
                json_response(conn, 401)
@@ -49,7 +49,7 @@ defmodule BankApiWeb.UserControllerTest do
 
     test "returns 401 when password is invalid", %{conn: conn} do
       conn =
-        post(conn, "/api/v1/sign_in", %{"email" => "richard@gmail.com", "password" => "1234567"})
+        post(conn, "/api/v1/users/sign_in", %{"email" => "richard@gmail.com", "password" => "1234567"})
 
       assert %{"errors" => %{"message" => ["Username or password is invalid"]}} =
                json_response(conn, 401)
@@ -64,7 +64,7 @@ defmodule BankApiWeb.UserControllerTest do
     test "returns 201 when user creation is sucessful", %{conn: conn} do
       user = params_for(:user)
 
-      conn = post(conn, "/api/v1/sign_up", user)
+      conn = post(conn, "/api/v1/users/sign_up", user)
 
       assert %{
                "data" => %{
@@ -79,7 +79,7 @@ defmodule BankApiWeb.UserControllerTest do
     test "returns 422 when name is empty", %{conn: conn} do
       user = params_for(:user, email: "")
 
-      conn = post(conn, "/api/v1/sign_up", user)
+      conn = post(conn, "/api/v1/users/sign_up", user)
 
       assert %{
                "errors" => %{
@@ -91,7 +91,7 @@ defmodule BankApiWeb.UserControllerTest do
     test "returns 422 when email is empty", %{conn: conn} do
       user = params_for(:user, email: "")
 
-      conn = post(conn, "/api/v1/sign_up", user)
+      conn = post(conn, "/api/v1/users/sign_up", user)
 
       assert %{
                "errors" => %{
@@ -103,7 +103,7 @@ defmodule BankApiWeb.UserControllerTest do
     test "returns 422 when password is empty", %{conn: conn} do
       user = params_for(:user, password: "")
 
-      conn = post(conn, "/api/v1/sign_up", user)
+      conn = post(conn, "/api/v1/users/sign_up", user)
 
       assert %{
                "errors" => %{
@@ -116,7 +116,7 @@ defmodule BankApiWeb.UserControllerTest do
     test "returns 422 when password_confirmation is empty", %{conn: conn} do
       user = params_for(:user, password_confirmation: "")
 
-      conn = post(conn, "/api/v1/sign_up", user)
+      conn = post(conn, "/api/v1/users/sign_up", user)
 
       assert %{
                "errors" => %{
@@ -128,7 +128,7 @@ defmodule BankApiWeb.UserControllerTest do
     test "returns 422 when email is invalid format", %{conn: conn} do
       user = params_for(:user, email: "richardgmail.com")
 
-      conn = post(conn, "/api/v1/sign_up", user)
+      conn = post(conn, "/api/v1/users/sign_up", user)
 
       assert %{
                "errors" => %{
@@ -141,7 +141,7 @@ defmodule BankApiWeb.UserControllerTest do
       insert(:user, email: "Richard@gmail.com")
       params = params_for(:user)
 
-      conn = post(conn, "/api/v1/sign_up", params)
+      conn = post(conn, "/api/v1/users/sign_up", params)
 
       assert %{
                "errors" => %{
@@ -153,7 +153,7 @@ defmodule BankApiWeb.UserControllerTest do
     test "returns 422 when passwords is not equals", %{conn: conn} do
       user = params_for(:user, password_confirmation: "12345")
 
-      conn = post(conn, "/api/v1/sign_up", user)
+      conn = post(conn, "/api/v1/users/sign_up", user)
 
       assert %{
                "errors" => %{
