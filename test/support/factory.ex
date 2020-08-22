@@ -21,7 +21,7 @@ defmodule BankApi.Factory do
 
   def account_factory do
     %Account{
-      balance: 100000
+      balance: 100_000
     }
   end
 

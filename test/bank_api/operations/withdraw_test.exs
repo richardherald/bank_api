@@ -11,7 +11,7 @@ defmodule BankApi.WithDrawTest do
 
       {:ok, from} = Withdraw.run(account_from.accounts.id, 100)
 
-      assert from.balance == 99900
+      assert from.balance == 99_900
     end
 
     test "returns error when balance is negative" do
@@ -23,7 +23,7 @@ defmodule BankApi.WithDrawTest do
     test "returns error when balance is insufficient" do
       account_from = insert(:user)
 
-      {:error, :insufficient_balance} = Withdraw.run(account_from.accounts.id, 120000)
+      {:error, :insufficient_balance} = Withdraw.run(account_from.accounts.id, 120_000)
     end
 
     test "returns error when account from is not found" do

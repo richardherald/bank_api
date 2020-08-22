@@ -10,7 +10,7 @@ defmodule BankApi.Users.Schema.Account do
   @derive {Phoenix.Param, key: :id}
   @foreign_key_type Ecto.UUID
   schema "accounts" do
-    field :balance, :integer, default: 100000
+    field :balance, :integer, default: 100_000
     belongs_to :users, BankApi.Users.Schema.User, foreign_key: :user_id
 
     timestamps()

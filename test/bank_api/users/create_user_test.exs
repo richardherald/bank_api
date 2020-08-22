@@ -21,7 +21,7 @@ defmodule BankApi.CreateUserTest do
       assert user.email == "Richard@gmail.com"
       refute user.password_hash == "123456"
 
-      assert account.balance == 100000
+      assert account.balance == 100_000
     end
 
     test "returns error when name is missing" do

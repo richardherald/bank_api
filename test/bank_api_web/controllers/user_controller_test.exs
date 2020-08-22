@@ -18,7 +18,7 @@ defmodule BankApiWeb.UserControllerTest do
 
       assert %{
                "data" => %{
-                 "account" => %{"balance" => 100000, "id" => _},
+                 "account" => %{"balance" => 100_000, "id" => _},
                  "email" => "ygor@gmail.com",
                  "id" => _,
                  "name" => "ygor"
@@ -78,7 +78,7 @@ defmodule BankApiWeb.UserControllerTest do
                  "id" => _,
                  "name" => "Richard",
                  "email" => "Richard@gmail.com",
-                 "account" => %{"balance" => 100000, "id" => _}
+                 "account" => %{"balance" => 100_000, "id" => _}
                }
              } = json_response(conn, 201)
     end
