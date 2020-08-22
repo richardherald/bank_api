@@ -9,7 +9,6 @@ services:
       PG_DATABASE: bank_api_dev
       PG_PORT: 5432
       PG_HOSTNAME: database_dev
-      HOSTNAME_DEV: database_dev
     build: .
     command: sh -c "./run.sh"
     ports:
