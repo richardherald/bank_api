@@ -59,7 +59,7 @@ The public endpoint is: https://bankstone.gigalixirapp.com/api/v1
 An api example of utilization is provided here:
 
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://www.getpostman.com/collections/2323d1dbb11b538771e1)\
-[File environment developer](https://github.com/richardherald/bank_api/blob/master/postman/development.postman_environment.json)_
+[File environment developer](https://github.com/richardherald/bank_api/blob/master/postman/development.postman_environment.json)\
 [File environment production](https://github.com/richardherald/bank_api/blob/master/postman/production.postman_environment.json)
 
 The postman files above provide a development and production environment, if you want to use the local environment, just use the "development" environment variable or use the "production" environment variable to consume the public endpoint that is hosted on the gigalixir. If you have difficulty importing files into postman: https://learning.postman.com/docs/getting-started/importing-and-exporting-data/
