@@ -35,13 +35,17 @@ defmodule BankApiWeb.UserControllerTest do
 
     test "returns 200 when credentials are valid", %{conn: conn} do
       conn =
-        post(conn, "/api/v1/users/sign_in", %{"email" => "Richard@gmail.com", "password" => "123456"})
+        post(conn, "/api/v1/users/sign_in", %{
+          "email" => "Richard@gmail.com",
+          "password" => "123456"
+        })
 
       assert %{"data" => %{"token" => _}} = json_response(conn, 200)
     end
 
     test "returns 401 when email is invalid", %{conn: conn} do
-      conn = post(conn, "/api/v1/users/sign_in", %{"email" => "ri@gmail.com", "password" => "123456"})
+      conn =
+        post(conn, "/api/v1/users/sign_in", %{"email" => "ri@gmail.com", "password" => "123456"})
 
       assert %{"errors" => %{"message" => ["Username or password is invalid"]}} =
                json_response(conn, 401)
@@ -49,7 +53,10 @@ defmodule BankApiWeb.UserControllerTest do
 
     test "returns 401 when password is invalid", %{conn: conn} do
       conn =
-        post(conn, "/api/v1/users/sign_in", %{"email" => "richard@gmail.com", "password" => "1234567"})
+        post(conn, "/api/v1/users/sign_in", %{
+          "email" => "richard@gmail.com",
+          "password" => "1234567"
+        })
 
       assert %{"errors" => %{"message" => ["Username or password is invalid"]}} =
                json_response(conn, 401)
