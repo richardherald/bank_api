@@ -4,7 +4,7 @@ defmodule BankApi.SendEmail do
   """
 
   def run do
-    :timer.sleep(4000)
+    :timer.sleep(1000)
     IO.puts("Email sent")
   end
 end
