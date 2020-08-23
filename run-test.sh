@@ -8,4 +8,6 @@ do
 done
 
 mix deps.get
-exec mix test
+cd deps/argon2_elixir && make clean && make
+cd ../..
+mix test
