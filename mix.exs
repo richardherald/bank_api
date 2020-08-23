@@ -10,7 +10,9 @@ defmodule BankApi.MixProject do
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+      test_coverage: [tool: ExCoveralls],
+      preferred_cli_env: [coveralls: :test, "coveralls.html": :test]
     ]
   end
 
@@ -47,7 +49,8 @@ defmodule BankApi.MixProject do
       {:ex_machina, "~> 2.4", only: :test},
       {:guardian, "~> 2.0"},
       {:distillery, "~> 2.1", runtime: false},
-      {:ex_doc, "~> 0.22", only: :dev, runtime: false}
+      {:ex_doc, "~> 0.22", only: :dev, runtime: false},
+      {:excoveralls, "~> 0.10", only: :test}
     ]
   end
 
