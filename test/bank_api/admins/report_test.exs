@@ -63,4 +63,18 @@ defmodule BankApi.ReportTest do
         errors_on(changeset)
     end
   end
+
+  describe "date_trunc/2" do
+    test "returns Ecto.date with the day locked at 01 when the month is less than or equal to 09" do
+      assert ~D[2020-08-01] == Report.date_trunc(~D[2020-08-10], :month)
+    end
+
+    test "returns Ecto.date with the day locked at 01 when the month is greater than to 09" do
+      assert ~D[2020-12-01] == Report.date_trunc(~D[2020-12-17], :month)
+    end
+
+    test "returns Ecto.date with the day and month locked at 01" do
+      assert ~D[2020-01-01] == Report.date_trunc(~D[2020-12-17], :year)
+    end
+  end
 end

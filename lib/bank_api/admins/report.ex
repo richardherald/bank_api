@@ -78,7 +78,7 @@ defmodule BankApi.Admins.Report do
           (transaction.type == "withdraw" and is_nil(transaction.transaction_link_id) == true)
   end
 
-  defp date_trunc(date, :month) do
+  def date_trunc(date, :month) do
     if date.month <= 9 do
       {:ok, date} = Date.from_iso8601("#{date.year}-0#{date.month}-01")
       date
@@ -88,7 +88,7 @@ defmodule BankApi.Admins.Report do
     end
   end
 
-  defp date_trunc(date, :year) do
+  def date_trunc(date, :year) do
     {:ok, date} = Date.from_iso8601("#{date.year}-01-01")
     date
   end
