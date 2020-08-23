@@ -1,5 +1,5 @@
 
-# Bank API ![actions](https://github.com/richardherald/bank_api/workflows/actions/badge.svg)
+# Bank API ![actions](https://github.com/richardherald/bank_api/workflows/actions/badge.svg) [![Coverage Status](https://coveralls.io/repos/github/richardherald/bank_api/badge.svg?branch=master)](https://coveralls.io/github/richardherald/bank_api?branch=master)
 
 ## Introduction
 
