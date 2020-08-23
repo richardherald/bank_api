@@ -58,7 +58,7 @@ The public endpoint is: https://bankstone.gigalixirapp.com/api/v1
 
 An api example of utilization is provided here:
 
-[[File postman]](https://github.com/richardherald/bank_api/blob/master/postman/postman.json)\
+[File postman](https://github.com/richardherald/bank_api/blob/master/postman/postman.json)\
 [File environment developer](https://github.com/richardherald/bank_api/blob/master/postman/development.postman_environment.json)\
 [File environment production](https://github.com/richardherald/bank_api/blob/master/postman/production.postman_environment.json)
 
