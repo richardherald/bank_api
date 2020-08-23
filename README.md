@@ -3,23 +3,23 @@
 
 ## Introduction
 
-The Api is divided into the contexts below:
+The Api is organized into the contexts below:
 
 ## Users
 
 - Sign up new users
-> This feature creates a user and their account. When creating the account the user receives 100000 cents (hundred thousand cents). The API works with the monetary value in cents
+> This feature creates an user and their account. When creating the account the user receives 100000 cents (hundred thousand cents). The API works with the monetary value in cents
 - Sign in users.
-> This feature requires the user's credentials (email and password) to be sent and, if the credentials are valid, a token will be sent in the response to be used for other protected resources
+> This feature requires the user's credentials (email and password), if the credentials are valid, the response will have a token that allow the access to protected resources
 - Get data user logged
-> This feature recover the the logged in user data
+> The feature return the user data
 
 ## Operations
 
 - Transfer
-> This feature transfers money from the logged-in user's account to another account. The logged in user must has the amount of money available in his account to cover the transfer fee.
+> This feature transfers money from the logged-in user's account to another account. The user must has the amount of money available in his account to cover the transfer fee.
 - Withdraw
-> This feature allows the logged in user to withdraw money from their account. The logged in user must have enough balance in his account to cover the withdrawal amount. After withdrawal an email will be sent with the proof of withdrawal.
+> This feature allows the logged in user to withdraw money from their account. The user must have enough balance in his account to cover the withdrawal amount. After withdrawal an email will be send with the proof of withdrawal.
 
 ## Transactions
 
@@ -29,9 +29,9 @@ The Api is divided into the contexts below:
 ## Admins
 
 - Sign up new Admin
-> This feature creates an administrator. they have access to the transaction report
+> This feature creates an administrator. They have access to the transaction report
 - Sign in Admin
-> This feature requires that the administrator's credentials (email and password) are sent and, if the credentials are valid, a token will be sent in the response to be used to access other protected resources
+> This feature requires that the administrator's credentials (email and password), if the credentials are valid, the response will have a token that allow the access to protected resources
 - report
 > This feature returns the sum of all transactions for a period
 
