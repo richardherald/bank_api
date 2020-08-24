@@ -62,7 +62,8 @@ defmodule BankApiWeb.TransactionControllerTest do
           "end_date" => "2020-08-30"
         })
 
-      assert %{"data" => %{"total_withdraw" => 0,"total_deposit" => 0, "transactions" => []}} = json_response(conn, 200)
+      assert %{"data" => %{"total_withdraw" => 0, "total_deposit" => 0, "transactions" => []}} =
+               json_response(conn, 200)
     end
 
     test "returns 422 when start_date is invalid date format", %{conn: conn} do
