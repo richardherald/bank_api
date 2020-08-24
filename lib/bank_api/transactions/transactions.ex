@@ -18,7 +18,7 @@ defmodule BankApi.Transactions.Transactions do
   ## Examples
 
       iex> run(%{date: "20200801", filter_by: "day"})
-      {:ok, %{result: [{}], total: 100}}
+      {:ok, %{result: [{}], total_withdraw: 100, total_deposit: 0}}
 
       iex> run(%{date: "20200801", filter_by: "other"})
       {:error, %Ecto.Changeset{}}
