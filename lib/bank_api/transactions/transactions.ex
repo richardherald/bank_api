@@ -52,17 +52,43 @@ defmodule BankApi.Transactions.Transactions do
           id: transaction_from.id,
           value: transaction_from.value,
           type: transaction_from.type,
-          account_from_id: transaction_from.account_id,
-          account_to_id: transaction_to.account_id,
+          account_from_id:
+            fragment(
+              "case
+                    when t0.type = 'withdraw' and t1.type = 'deposit' then ?
+                    when t0.type = 'withdraw' and t1.id is null then ?
+                    when t0.type = 'deposit' and t1.type = 'withdraw' then ?
+                    end",
+              transaction_from.account_id,
+              transaction_from.account_id,
+              transaction_to.account_id
+            ),
+          account_to_id:
+            fragment(
+              "case
+                    when t0.type = 'withdraw' and t1.type = 'deposit' then ?
+                    when t0.type = 'deposit' and t1.type = 'withdraw' then ?
+                    end",
+              transaction_to.account_id,
+              transaction_from.account_id
+            ),
           inserted_at: transaction_from.inserted_at
         }
       )
 
     result = Repo.all(query)
-    {:ok, %{result: result, total: sum_total(result)}}
+
+    {:ok,
+     %{
+       result: result,
+       total_withdraw: sum_total(result, :withdraw),
+       total_deposit: sum_total(result, :deposit)
+     }}
   end
 
-  defp sum_total(transactions) do
-    Enum.reduce(transactions, 0, fn t, acc -> acc + t.value end)
+  defp sum_total(transactions, operation) do
+    Enum.reduce(transactions, 0, fn t, acc ->
+      if t.type == Atom.to_string(operation), do: acc + t.value, else: acc
+    end)
   end
 end

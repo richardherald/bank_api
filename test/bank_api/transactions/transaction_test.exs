@@ -15,8 +15,13 @@ defmodule BankApi.TransactionTest do
       {:ok, transactions} = Transactions.run(user_from.accounts.id, params)
       assert is_list(transactions.result)
       assert length(transactions.result) == 1
-      assert transactions.total == 100
-      assert Enum.map(transactions.result, & &1.account_from_id) == [user_from.accounts.id]
+      assert transactions.total_withdraw == 100
+      assert transactions.total_deposit == 0
+
+      [account_from_id] = Enum.map(transactions.result, & &1.account_from_id)
+      {:ok, account_from} = Ecto.UUID.cast(account_from_id)
+
+      assert account_from == user_from.accounts.id
       assert Enum.map(transactions.result, & &1.value) == [100]
     end
 
@@ -28,7 +33,8 @@ defmodule BankApi.TransactionTest do
       {:ok, transactions} = Transactions.run(user_from.accounts.id, params)
       assert is_list(transactions.result)
       assert Enum.empty?(transactions.result) == true
-      assert transactions.total == 0
+      assert transactions.total_withdraw == 0
+      assert transactions.total_deposit == 0
     end
 
     test "returns error when start_date is invalid date format" do

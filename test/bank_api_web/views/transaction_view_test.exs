@@ -15,12 +15,14 @@ defmodule BankApiWeb.TransactionViewTest do
           value: 100
         }
       ],
-      total: 100
+      total_withdraw: 100,
+      total_deposit: 100
     }
 
     assert %{
              data: %{
-               total: 100,
+              total_withdraw: 100,
+              total_deposit: 100,
                transactions: [
                  %{
                    account_from_id: "ed4cbaf1-5f96-4b2d-aaf0-1a695376cec1",
