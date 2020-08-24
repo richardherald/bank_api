@@ -17,14 +17,14 @@ The Api is organized into the contexts below:
 ## Operations
 
 - Transfer
-> This feature transfers money from the logged-in user's account to another account. The user must has the amount of money available in his account to cover the transfer fee.
+> This feature transfers money from the logged in user's account to another account. When transferring money, `withdraw` and `deposit` type transactions are created. linkeds respectively to the user who send the money and the one who received the transfer. For the transaction to happen it is necessary to have the amount of money available in your account.
 - Withdraw
-> This feature allows the logged in user to withdraw money from their account. The user must have enough balance in his account to cover the withdrawal amount. After withdrawal an email will be send with the proof of withdrawal.
+> This feature allows the logged in user to withdraw money from their account. When withdrawing money, a `withdraw` type transaction is created. The user must have sufficient balance in his account to cover the withdrawal amount. After operation, an email will be send with proof.
 
 ## Transactions
 
 - List of transactions
-> Lists the history of the user's withdrawal or transfer transactions
+> Lists an user's transaction history
 
 ## Admins
 
